@@ -22,7 +22,7 @@ class FacebookStream:
 
     def getGstreamerSink(self):
         return """
-            264videotee. ! queue ! flvmux name=fbmux 
+            h264videotee. ! queue ! flvmux name=fbmux 
             44audiotee. ! queue  ! fbmux. 
             fbmux. ! rtmpsink location="{location}"
         """.format(location=self.StreamLocation)
