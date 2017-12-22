@@ -18,15 +18,27 @@ def exit_master():
 
 
 def main():
-    global args, mainloop
-    #Gst.init([])
-    global config 
+    global args, mainloop, config 
+    sinksArray = []
+    Gst.init([])
     config = configparser.ConfigParser()
     config.read("streams.ini")
     if (config.get("StreamAutomatorSettings","StreamFacebook")):
-        print("test")
         fbs = FacebookStream(config.get("Facebook","PageID"), config.get("Facebook","PageAccessToken"))
-        fbs.getLiveAPIToken()
+        fbs.getGstreamerSink()
+        sinksArray.append(fbs.getGstreamerSink())
+    
+
+    if (sinksArray.count == 1 ): 
+        sinks = sinksArray[0]
+
+    pipeline = """
+        {src} ! {sinks}
+    """.format(src=config.get("StreamAutomatorSettings","source"),sinks=sinksArray[0])
+    print(pipeline)
+
+     pipeline = Gst.parse_launch(pipelineText)
+     self.pipeline.set_state(Gst.State.PLAYING)
 
 if __name__ == '__main__':
     mainloop = GObject.MainLoop()
