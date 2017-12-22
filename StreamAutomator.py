@@ -1,4 +1,14 @@
 #!/usr/bin/env python3
+"""
+Automatically starts a number of streames based on a config file.
+
+Help regarding Facebook Stream came from here: https://mikeymalone.com/2017/05/08/raspberry-picam-facebook-live-streaming-guide-automation/
+https://stackoverflow.com/questions/17197970/facebook-permanent-page-access-token
+
+
+
+
+"""
 
 import argparse
 from threading import Thread

@@ -1,7 +1,12 @@
 [StreamAutomatorSettings]
-StreamFacebook=true
-
+source = tcpclientsrc host=127.0.0.1 port=15000
+StreamFacebook=false
+StreamFile=true
 
 [Facebook]
 PageID=
 PageAccessToken=
+
+[File]
+Path=/home/media/Desktop
+Name=Recording
