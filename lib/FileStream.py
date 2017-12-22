@@ -11,6 +11,6 @@ class FileStream:
     def getGstreamerSink(self):
         return """
             h264videotee. ! queue ! matroskamux name=filemux 
-            48audiotee. ! queue ! filemux. 
+            44audiotee. ! queue ! filemux. 
             filemux. ! filesink location="{path}"
         """.format(path=self.path)

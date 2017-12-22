@@ -1,14 +1,4 @@
 #!/usr/bin/env python3
-"""
-Automatically starts a number of streames based on a config file.
-
-Help regarding Facebook Stream came from here: https://mikeymalone.com/2017/05/08/raspberry-picam-facebook-live-streaming-guide-automation/
-https://stackoverflow.com/questions/17197970/facebook-permanent-page-access-token
-
-
-
-
-"""
 
 import argparse
 from threading import Thread
@@ -52,10 +42,8 @@ def main():
         
         videot. ! queue ! videoconvert !  videorate ! videoscale ! 
         video/x-raw,width=1920,height=1080,framerate=30/1 ! 
-        x264enc bitrate=4000 key-int-max=2 speed-preset=veryfast ! video/x-h264,profile=baseline ! h264parse ! tee name=h264videotee allow-not-linked=true
-
+        x264enc bitrate=4000 key-int-max=2 speed-preset=ultrafast ! video/x-h264,profile=baseline ! h264parse ! tee name=h264videotee allow-not-linked=true
         audiot. ! queue ! audioresample ! audio/x-raw,rate=44100 ! queue ! voaacenc bitrate=128000 ! tee name=44audiotee allow-not-linked=true
-        audiot. ! queue ! audioresample ! audio/x-raw,rate=48000 ! queue ! voaacenc bitrate=128000 ! tee name=48audiotee allow-not-linked=true
         
         {sinks}
     """.format(src=config.get("StreamAutomatorSettings","source"),sinks=sinksText)
