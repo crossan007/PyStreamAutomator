@@ -32,13 +32,13 @@ def main():
     if (sinksArray.count == 1 ): 
         sinks = sinksArray[0]
 
-    pipeline = """
+    pipelineText = """
         {src} ! {sinks}
     """.format(src=config.get("StreamAutomatorSettings","source"),sinks=sinksArray[0])
-    print(pipeline)
+    print(pipelineText)
 
-     pipeline = Gst.parse_launch(pipelineText)
-     self.pipeline.set_state(Gst.State.PLAYING)
+    pipeline = Gst.parse_launch(pipelineText)
+    pipeline.set_state(Gst.State.PLAYING)
 
 if __name__ == '__main__':
     mainloop = GObject.MainLoop()
