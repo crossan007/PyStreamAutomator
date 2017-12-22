@@ -40,7 +40,7 @@ def main():
         
         d. ! videoconvert !  videorate ! videoscale ! 
         video/x-raw,width=1920,height=1080,framerate=30/1 ! 
-        x264enc bitrate=4000 key-int-max=2 speed-preset=veryfast ! video/x-h264,profile=baseline ! h264parse ! tee name=264videotee allow-not-linked=true
+        x264enc bitrate=4000 key-int-max=2 speed-preset=veryfast ! video/x-h264,profile=baseline ! h264parse ! tee name=h264videotee allow-not-linked=true
 
         d. ! queue ! audioresample ! audio/x-raw,rate=44100 ! queue ! voaacenc bitrate=128000 ! tee name=44audiotee allow-not-linked=true
 
