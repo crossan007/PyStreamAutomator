@@ -8,6 +8,7 @@ gi.require_version('GstNet', '1.0')
 from gi.repository import Gst, GstNet, GObject
 import configparser
 from lib.FacebookStream import FacebookStream
+from lib.FileStream import FileStream
 
 
 
@@ -19,22 +20,26 @@ def exit_master():
 
 def main():
     global args, mainloop, config 
-    sinksArray = []
+    sinksText = ""
     Gst.init([])
     config = configparser.ConfigParser()
     config.read("streams.ini")
     if (config.get("StreamAutomatorSettings","StreamFacebook")):
         fbs = FacebookStream(config.get("Facebook","PageID"), config.get("Facebook","PageAccessToken"))
-        fbs.getGstreamerSink()
-        sinksArray.append(fbs.getGstreamerSink())
+        sinksText += fbs.getGstreamerSink()
+
+    if (config.get("StreamAutomatorSettings","StreamFile")):
+        filestr = FileStream(config.get("File","Path"), config.get("File","Name"))
+        sinksText +=  filestr.getGstreamerSink()
     
 
-    if (sinksArray.count == 1 ): 
-        sinks = sinksArray[0]
+
 
     pipelineText = """
-        {src} ! {sinks}
-    """.format(src=config.get("StreamAutomatorSettings","source"),sinks=sinksArray[0])
+        {src} ! tee name=tee 
+        
+        {sinks}
+    """.format(src=config.get("StreamAutomatorSettings","source"),sinks=sinksText)
     print(pipelineText)
 
     pipeline = Gst.parse_launch(pipelineText)
