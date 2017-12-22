@@ -24,11 +24,11 @@ def main():
     Gst.init([])
     config = configparser.ConfigParser()
     config.read("streams.ini")
-    if (config.get("StreamAutomatorSettings","StreamFacebook")):
+    if (config.get("StreamAutomatorSettings","StreamFacebook")=="true"):
         fbs = FacebookStream(config.get("Facebook","PageID"), config.get("Facebook","PageAccessToken"))
         sinksText += fbs.getGstreamerSink()
 
-    if (config.get("StreamAutomatorSettings","StreamFile")):
+    if (config.get("StreamAutomatorSettings","StreamFile")=="true"):
         filestr = FileStream(config.get("File","Path"), config.get("File","Name"))
         sinksText +=  filestr.getGstreamerSink()
     

@@ -5,8 +5,8 @@ class FileStream:
     def __init__(self,path,name):
         print("File Stream initialized")
         local_time = datetime.now()
-        self.name = "{name}{date}".format(name=name,date=local_time.strftime('%Y-%m-%d-%H%M%S'))
-        self.path=path+self.name
+        self.name = "{name}{date}.mkv".format(name=name,date=local_time.strftime('%Y-%m-%d-%H%M%S'))
+        self.path=path+"/"+self.name
 
     def getGstreamerSink(self):
         return """
