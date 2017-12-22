@@ -36,7 +36,7 @@ def main():
 
 
     pipelineText = """
-        {src} ! tee name=tee 
+        {src} ! queue ! matroskademux name=d
         
         {sinks}
     """.format(src=config.get("StreamAutomatorSettings","source"),sinks=sinksText)
